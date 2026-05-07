@@ -1,0 +1,27 @@
+.header {
+ width: 100%;
+ padding: 40px 20px;
+ text-align: center;
+}
+
+.header-container {
+ max-width: 600px;
+ margin: 0 auto;
+}
+
+.logo {
+ font-size: 2.5rem;
+ font-weight: 700;
+ color: #ffffff;
+ letter-spacing: 1px;
+}
+
+.logo span {
+ color: #4f46e5; /* accent color */
+}
+
+.tagline {
+ margin-top: 10px;
+ font-size: 1rem;
+ color: #a1a1aa;
+}

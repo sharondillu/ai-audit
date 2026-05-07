@@ -1,0 +1,155 @@
+* {
+ box-sizing: border-box;
+}
+
+.form-container {
+ width: 100%;
+ display: flex;
+ justify-content: center;
+ padding: 20px;
+}
+
+.audit-form {
+ width: 100%;
+ max-width: 560px;
+ background: rgba(24, 24, 27, 0.95);
+ padding: 35px;
+ border-radius: 22px;
+ border: 1px solid #2e2e33;
+ box-shadow: 0 10px 35px rgba(0, 0, 0, 0.45);
+ backdrop-filter: blur(10px);
+}
+
+/* TITLE */
+
+.form-title {
+ text-align: center;
+ color: white;
+ font-size: 2rem;
+ margin-bottom: 30px;
+ line-height: 1.3;
+}
+
+/* LABELS */
+
+.audit-form label {
+ display: block;
+ margin-top: 18px;
+ margin-bottom: 8px;
+ color: #d4d4d8;
+ font-size: 0.95rem;
+ font-weight: 500;
+}
+
+/* INPUTS + SELECT */
+
+.audit-form input,
+.audit-form select {
+ width: 100%;
+ min-width: 100%;
+ padding: 15px 16px;
+ border-radius: 14px;
+ border: 1px solid #3b3b42;
+ background-color: #232326;
+ color: white;
+ font-size: 1rem;
+ outline: none;
+ transition: all 0.3s ease;
+}
+
+/* SELECT FIX */
+
+.audit-form select {
+ appearance: none;
+ cursor: pointer;
+}
+
+/* PLACEHOLDER */
+
+.audit-form input::placeholder {
+ color: #8b8b92;
+}
+
+/* FOCUS */
+
+.audit-form input:focus,
+.audit-form select:focus {
+ border-color: #6366f1;
+ box-shadow: 0 0 12px rgba(99, 102, 241, 0.35);
+}
+
+/* BUTTON */
+
+.audit-form button {
+ width: 100%;
+ margin-top: 32px;
+ padding: 16px;
+ border: none;
+ border-radius: 14px;
+ background: linear-gradient(
+   135deg,
+   #4f46e5,
+   #6366f1
+ );
+ color: white;
+ font-size: 1rem;
+ font-weight: 600;
+ cursor: pointer;
+ transition: 0.3s ease;
+}
+
+.audit-form button:hover {
+ transform: translateY(-2px);
+ opacity: 0.95;
+}
+
+/* MOBILE RESPONSIVE */
+
+@media (max-width: 768px) {
+
+ .form-container {
+   padding: 15px;
+ }
+
+ .audit-form {
+   padding: 25px 20px;
+   border-radius: 18px;
+ }
+
+ .form-title {
+   font-size: 1.6rem;
+   margin-bottom: 24px;
+ }
+
+ .audit-form input,
+ .audit-form select {
+   padding: 14px;
+   font-size: 0.95rem;
+ }
+
+ .audit-form button {
+   padding: 15px;
+ }
+}
+
+/* EXTRA SMALL DEVICES */
+
+@media (max-width: 480px) {
+
+ .audit-form {
+   padding: 22px 16px;
+ }
+
+ .form-title {
+   font-size: 1.4rem;
+ }
+
+ .audit-form label {
+   font-size: 0.9rem;
+ }
+
+ .audit-form input,
+ .audit-form select {
+   font-size: 0.92rem;
+ }
+}
