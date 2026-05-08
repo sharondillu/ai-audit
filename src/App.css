@@ -1,0 +1,43 @@
+.app-container {
+ width: 100%;
+ min-height: 100vh;
+ background: #0f0f11;
+}
+
+/* CONTENT LAYOUT */
+.main-content {
+
+ display: flex !important;
+ flex-direction: row!important;
+
+ justify-content: center;
+ align-items: flex-start;
+ gap: 40px;
+
+ padding: 40px 20px;
+ max-width: 1110px;
+ margin:auto;
+}
+
+/* FORM + RESULT WIDTH */
+.audit-form {
+ flex: 1;
+ max-width: 500px;
+}
+
+.result-container {
+ flex: 1;
+ max-width: 500px;
+}
+
+@media (max-width: 768px) {
+ .main-content {
+   flex-direction: column;
+   align-items: center;
+ }
+ .form-container,
+ .result-container {
+   max-width: 100%;
+   width: 100%;
+ }
+}

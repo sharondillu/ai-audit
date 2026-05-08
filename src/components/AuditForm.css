@@ -3,8 +3,11 @@
 }
 
 .form-container {
- width: 100%;
- display: flex;
+ /*width: 100%;
+ display: flex;*/
+flex:1;
+max-width: 580px;
+
  justify-content: center;
  padding: 20px;
 }
@@ -102,6 +105,32 @@
  transform: translateY(-2px);
  opacity: 0.95;
 }
+/* TOOL CARD */
+.tool-card {
+ background: #1f1f23;
+ padding: 18px;
+ border-radius: 14px;
+ margin-top: 18px;
+
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 12px;
+}
+
+/* FULL WIDTH FIELDS */
+.tool-card label,
+.tool-card input,
+.tool-card select {
+ grid-column: span 2;
+}
+
+/* TWO COLUMN FIELDS */
+.tool-card .half {
+ grid-column: span 1;
+}
+
+
+
 
 /* MOBILE RESPONSIVE */
 
@@ -134,7 +163,7 @@
 
 /* EXTRA SMALL DEVICES */
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
 
  .audit-form {
    padding: 22px 16px;
