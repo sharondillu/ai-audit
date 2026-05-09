@@ -4,12 +4,13 @@
 
 .form-container {
  /*width: 100%;
- display: flex;*/
+ display: flex;
 flex:1;
 max-width: 580px;
 
  justify-content: center;
- padding: 20px;
+ padding: 20px;*/
+ width:100%;
 }
 
 .audit-form {
@@ -159,11 +160,14 @@ max-width: 580px;
  .audit-form button {
    padding: 15px;
  }
+ .tool-card{
+  grid-template-columns: 1fr!important;
+ }
 }
 
 /* EXTRA SMALL DEVICES */
 
-@media (max-width: 768px) {
+@media (max-width: 468px) {
 
  .audit-form {
    padding: 22px 16px;

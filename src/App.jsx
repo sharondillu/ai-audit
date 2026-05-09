@@ -7,133 +7,149 @@ import AuditForm from "./components/AuditForm";
 import ResultCard from "./components/ResultCard";
 import "./App.css";
 
+const ALTERNATIVES = {
+ "Coding / Software Development": ["GitHub Copilot", "Cursor"],
+ "Writing / Content Creation": ["ChatGPT", "Claude"],
+ "Data Analysis / Research": ["Claude", "Gemini"],
+ "Mixed / Multiple Use Cases": ["ChatGPT", "Claude", "GitHub Copilot"],
+};
+
 /* =========================
   PRICING DATA
 ========================= */
 
 const PRICING = {
  ChatGPT: {
-   Free: 0,
    Plus: 20,
-   Pro: 30,
    Team: 25,
    Enterprise: 60,
  },
  "GitHub Copilot": {
-   Free: 0,
-   Pro: 10,
-   Team: 19,
+   Individual: 10,
+   Business: 19,
    Enterprise: 39,
  },
  Claude: {
-   Free: 0,
    Pro: 20,
    Team: 30,
    Enterprise: 60,
  },
  Gemini: {
-   Free: 0,
    Pro: 20,
-   Team: 30,
-   Enterprise: 60,
+   Ultra: 30,
  },
  Cursor: {
-   Free: 0,
+   Hobby: 0,
    Pro: 20,
-   Team: 40,
-   Enterprise: 60,
- }
+   Business: 40,
+ },
 };
 
 const evaluateTool = (toolData, useCase) => {
  const { tool, plan, users, cost } = toolData;
 
- if (plan === "Free") {
+ if (!PRICING[tool]) {
+   return {
+     tool,
+     savings: 0,
+     recommendation: "Pricing data not available.",
+   };
+ }
+
+ // Handle API tools
+ if (plan === "API") {
    return {
      tool,
      savings: 0,
      recommendation:
-       "You're on a free plan. Upgrade only if your usage requires advanced features.",
+       "API pricing depends on usage (tokens/requests). Monitor usage dashboards to optimize cost.",
    };
  }
 
- const pricePerUser = PRICING[tool]?.[plan];
-
- if (pricePerUser === undefined) {
-   return {
-     tool,
-     savings: 0,
-     recommendation: "Pricing data unavailable.",
-   };
- }
-
+ const pricePerUser = PRICING[tool][plan]?.price || 0;
  const expectedCost = pricePerUser * users;
+ 
+ // 🔹 Find best plan
+ let bestPlan = plan;
+ let bestCost = expectedCost;
+
+ Object.entries(PRICING[tool]).forEach(([p, data]) => {
+   const total = data.price * users;
+   if (total < bestCost) {
+     bestCost = total;
+     bestPlan = p;
+   }
+ });
+
+ // 🔹 Alternative tools
+ const alternatives = ALTERNATIVES[useCase] || [];
+
+ let bestAlt = null;
+ let bestAltCost = Infinity;
+
+ alternatives.forEach((alt) => {
+   const plans = PRICING[alt];
+   if (!plans) return;
+
+   Object.entries(plans).forEach(([p, data]) => {
+     const total = data.price * users;
+     if (total < bestAltCost) {
+       bestAltCost = total;
+       bestAlt = `${alt} (${p})`;
+     }
+   });
+ });
 
  let savings = 0;
- let recommendation = "";
+let recommendation;
 
- /* -------------------------
-    RULE 1: Overpay
- -------------------------- */
+ /* =========================
+    CASE 1: Overpaying
+ ========================= */
  if (cost > expectedCost) {
    savings = cost - expectedCost;
+
+   recommendation = `You are paying $${savings} more than expected for ${tool}. This may indicate unused seats or incorrect billing.`;
+ }
+
+ /* =========================
+    CASE 2: Better plan
+ ========================= */
+ else if (bestCost < expectedCost) {
+   savings = expectedCost - bestCost;
+
+   recommendation = `Switch from ${plan} → ${bestPlan} to save $${savings}/month while maintaining the same usage.`;
+ }
+
+ /* =========================
+    CASE 3: Better alternative
+ ========================= */
+ else if (bestAltCost < expectedCost) {
+   savings = expectedCost - bestAltCost;
+
+   recommendation = `${tool} may be overkill for your use case. Consider switching to ${bestAlt} to save $${savings}/month.`;
+ }
+
+ /* =========================
+    CASE 4: Efficient
+ ========================= */
+ else {
    recommendation =
-     "You're paying more than expected. This may indicate unused seats or billing inefficiencies.";
+     "Your current setup is cost-efficient based on your usage and team size.";
  }
 
- /* -------------------------
-    RULE 2: Plan mismatch
- -------------------------- */
- if (users <= 2 && (plan === "Team" || plan === "Enterprise")) {
-   const cheaperCost = 20 * users;
+ /* =========================
+    USE CASE INSIGHT
+ ========================= */
 
-   if (cost > cheaperCost) {
-     savings = cost - cheaperCost;
-     recommendation =
-       "For small teams, individual plans are typically more cost-efficient than Team or Enterprise tiers.";
-   }
- }
-
- /* -------------------------
-    RULE 3: USE CASE LOGIC
- -------------------------- */
-
- // Coding
- if (useCase === "Coding / Software Development") {
-   if (tool === "ChatGPT") {
-     recommendation +=
-       " For coding workflows, tools like GitHub Copilot or Cursor may provide better developer productivity.";
-   }
- }
-
- // Writing
- if (useCase === "Writing / Content Creation") {
-   if (tool === "GitHub Copilot") {
-     recommendation +=
-       " Copilot is optimized for coding. For writing tasks, Claude or ChatGPT may be more effective.";
-   }
- }
-
- // Research
- if (useCase === "Data Analysis / Research") {
-   if (tool === "ChatGPT") {
-     recommendation +=
-       " For research-heavy workflows, tools like Claude or Gemini may offer better long-context understanding.";
-   }
- }
-
- // Mixed
- if (useCase === "Mixed / Multiple Use Cases") {
+ if (useCase === "Coding / Software Development" && tool === "ChatGPT") {
    recommendation +=
-     " Consider diversifying tools across use cases instead of relying on a single platform.";
+     " For coding workflows, tools like GitHub Copilot or Cursor may provide better developer productivity.";
  }
 
- /* -------------------------
-    FINAL FALLBACK
- -------------------------- */
- if (savings <= 0 && recommendation === "") {
-   recommendation =
-     "Your current setup appears cost-efficient based on your usage.";
+ if (useCase === "Writing / Content Creation" && tool === "GitHub Copilot") {
+   recommendation +=
+     " Copilot is optimized for coding. Consider ChatGPT or Claude for writing tasks.";
  }
 
  return {
@@ -142,6 +158,9 @@ const evaluateTool = (toolData, useCase) => {
    recommendation,
  };
 };
+
+ 
+ 
 const generateAudit = (data) => {
  const { tools, useCase } = data;
 

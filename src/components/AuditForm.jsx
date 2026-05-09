@@ -1,81 +1,60 @@
-// src/components/AuditForm.jsx
-
 import { useState, useEffect } from "react";
 import "./AuditForm.css";
 
-/* =========================
-  TOOL PLAN CONFIG
-========================= */
-
-const TOOL_PLANS = {
- ChatGPT: ["Free", "Plus", "Pro", "Team", "Enterprise"],
- Claude: ["Free", "Pro", "Team", "Enterprise"],
- "GitHub Copilot": ["Free", "Pro", "Team", "Enterprise"],
- Gemini: ["Free", "Pro", "Team", "Enterprise"],
- Cursor: ["Free", "Pro", "Team", "Enterprise"],
+const TOOL_CONFIG = {
+ Cursor: ["Hobby", "Pro", "Business", "Enterprise"],
+ "GitHub Copilot": ["Individual", "Business", "Enterprise"],
+ Claude: ["Free", "Pro", "Max", "Team", "Enterprise", "API"],
+ ChatGPT: ["Plus", "Team", "Enterprise", "API"],
+ "Anthropic API": ["API"],
+ "OpenAI API": ["API"],
+ Gemini: ["Pro", "Ultra", "API"],
+ Windsurf: ["Free", "Pro"],
 };
 
 function AuditForm({ onAudit }) {
- /* =========================
-    STATE
- ========================= */
-
  const [teamSize, setTeamSize] = useState(1);
  const [useCase, setUseCase] = useState("");
-
  const [tools, setTools] = useState([
-   {
-     tool: "ChatGPT",
-     plan: "Plus",
-     cost: "",
-     users: 1,
-   },
+   { tool: "", plan: "", users: 1, cost: "" },
  ]);
+ const [error, setError] = useState("");
 
  /* =========================
     LOAD FROM LOCAL STORAGE
  ========================= */
-
  useEffect(() => {
-   const saved = localStorage.getItem("auditData");
-
+   const saved = JSON.parse(localStorage.getItem("auditData"));
    if (saved) {
-     const parsed = JSON.parse(saved);
-
-     setTeamSize(Number(parsed.teamSize) || 1);
-     setUseCase(parsed.useCase || "");
-     setTools(parsed.tools || [{
-        tool:"ChatGPT",
-        plan:"plus",
-        cost:"",
-        users:1,
-     },
-    ]);
+     setTeamSize(saved.teamSize || 1);
+     setUseCase(saved.useCase || "");
+     setTools(saved.tools || []);
    }
  }, []);
 
  /* =========================
     SAVE TO LOCAL STORAGE
  ========================= */
-
  useEffect(() => {
-   const data = { teamSize, useCase, tools };
-   localStorage.setItem("auditData", JSON.stringify(data));
+   localStorage.setItem(
+     "auditData",
+     JSON.stringify({ teamSize, useCase, tools })
+   );
  }, [teamSize, useCase, tools]);
 
  /* =========================
-    HANDLERS
+    TOOL HANDLERS
  ========================= */
+ const updateTool = (index, field, value) => {
+   const updated = [...tools];
+   updated[index][field] = value;
+   setTools(updated);
+ };
 
  const addTool = () => {
    setTools([
      ...tools,
-     {
-       tool: "ChatGPT",
-       plan: "Plus",
-       cost: "",
-       users: 1,
-     },
+     { tool: "", plan: "", users: 1, cost: "" },
    ]);
  };
 
@@ -84,24 +63,31 @@ function AuditForm({ onAudit }) {
    setTools(updated);
  };
 
- const updateTool = (index, field, value) => {
-   const updated = [...tools];
+ /* =========================
+    SUBMIT HANDLER
+ ========================= */
+ const handleSubmit = (e) => {
+   e.preventDefault();
 
-   updated[index][field] = value;
+   const totalUsers = tools.reduce(
+     (sum, t) => sum + Number(t.users || 0),
+     0
+   );
 
-   // ✅ Auto-set cost for free plan
-   if (field === "plan" && value === "Free") {
-     updated[index].cost = 0;
+   if (totalUsers > teamSize) {
+     setError("Total tool users cannot exceed team size");
+     return;
    }
 
-   setTools(updated);
- };
+   for (let t of tools) {
+     if (!t.tool || !t.plan) {
+       setError("Please select tool and plan");
+       return;
+     }
+   }
 
- /* =========================
-    SUBMIT
- ========================= */
+   setError("");
 
- const handleSubmit = () => {
    onAudit({
      teamSize,
      useCase,
@@ -109,27 +95,21 @@ function AuditForm({ onAudit }) {
    });
  };
 
- /* =========================
-    UI
- ========================= */
-
  return (
-   <div className="audit-form">
+   <div className="form-container">
+     <form className="audit-form" onSubmit={handleSubmit}>
+       <h2 className="form-title">AI Spend Audit</h2>
 
-     <h2>AI Spend Audit</h2>
-
-     {/* ===== Overall Info ===== */}
-     <div className="section">
-       <h3>Overall Information</h3>
-
-       <label>Total Team Size</label>
+       {/* TEAM SIZE */}
+       <label>Team Size</label>
        <input
          type="number"
          min="1"
          value={teamSize}
-         onChange={(e) => setTeamSize(Number(e.target.value))}
+         onChange={(e) => setTeamSize(e.target.value)}
        />
 
+       {/* USE CASE */}
        <label>Primary Use Case</label>
        <select
          value={useCase}
@@ -143,99 +123,76 @@ function AuditForm({ onAudit }) {
          <option>Other</option>
        </select>
 
-       <p className="form-hint">
-         Add all AI tools your team currently uses for accurate results.
-       </p>
-     </div>
-
-     {/* ===== Tools Section ===== */}
-     <div className="section">
-       <h3>Tools</h3>
-
-       {tools.map((item, index) => (
+       {/* TOOLS */}
+       {tools.map((tool, index) => (
          <div key={index} className="tool-card">
 
-           {/* Tool Name */}
            <label>Tool</label>
            <select
-             value={item.tool}
-             onChange={(e) => {
-               const selectedTool = e.target.value;
-               const defaultPlan = TOOL_PLANS[selectedTool][0];
-
-               updateTool(index, "tool", selectedTool);
-               updateTool(index, "plan", defaultPlan);
-             }}
+             value={tool.tool}
+             onChange={(e) =>
+               updateTool(index, "tool", e.target.value)
+             }
               >
-             {Object.keys(TOOL_PLANS).map((tool) => (
-               <option key={tool}>{tool}</option>
+             <option value="">Select Tool</option>
+             {Object.keys(TOOL_CONFIG).map((t) => (
+               <option key={t}>{t}</option>
              ))}
            </select>
 
-           {/* Plan */}
            <label>Plan</label>
            <select
-             value={item.plan}
+             value={tool.plan}
              onChange={(e) =>
                updateTool(index, "plan", e.target.value)
              }
-             >
-             {TOOL_PLANS[item.tool].map((plan) => (
-               <option key={plan}>{plan}</option>
+              >
+             <option value="">Select Plan</option>
+             {TOOL_CONFIG[tool.tool]?.map((p) => (
+               <option key={p}>{p}</option>
              ))}
            </select>
 
-           {/* Cost */}
+           {tool.plan !== "API" && (
+             <>
+               <label>Users</label>
+               <input
+                 type="number"
+                 value={tool.users}
+                 onChange={(e) =>
+                   updateTool(index, "users", e.target.value)
+                 }
+               />
+             </>
+           )}
+
            <label>Monthly Spend ($)</label>
            <input
              type="number"
-             value={item.cost}
-             disabled={item.plan === "Free"}
+             value={tool.cost}
              onChange={(e) =>
-               updateTool(index, "cost", Number(e.target.value))
+               updateTool(index, "cost", e.target.value)
              }
            />
 
-           {item.plan === "Free" && (
-             <p className="hint">
-               Free plan — no cost applicable
-             </p>
-           )}
-
-           {/* Users */}
-           <label>Users</label>
-           <input className="half"
-             type="number"
-             min="1"
-             value={item.users}
-             onChange={(e) =>
-               updateTool(index, "users", Number(e.target.value))
-             }
-           />
-
-           {/* Remove */}
-           {tools.length > 1 && (
-             <button
-               className="remove-btn"
-               onClick={() => removeTool(index)}
-              >
-               Remove
-             </button>
-           )}
+           <button
+             type="button"
+             className="remove-btn"
+             onClick={() => removeTool(index)}
+             >
+             Remove
+           </button>
          </div>
        ))}
 
-       {/* Add Tool */}
-       <button className="add-btn" onClick={addTool}>
+       <button type="button" onClick={addTool}>
          + Add Tool
        </button>
-     </div>
 
-     {/* Submit */}
-     <button className="submit-btn" onClick={handleSubmit}>
-       Run Audit
-     </button>
+       {error && <p className="error">{error}</p>}
 
+       <button type="submit">Run Audit</button>
+     </form>
    </div>
  );
 }

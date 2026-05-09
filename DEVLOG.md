@@ -67,22 +67,23 @@ Focused on building a modern SaaS-style dark UI to improve trust and visual qual
 
 # DEVLOG.md
 
-## Day 2 — Form Expansion, Multi-Tool Support & UI Debugging
+## Day 2— Audit Logic Improvement, Testing & User Interviews
 
 ### ⏱ Time Spent
-~6–7 hours
+~6-7 hours
 
 ---
 
 ## ✅ What I Built
 
-### 1. Multi-Tool Input System
+### 1.Multi-Tool Input System
 - Converted the form from single tool → dynamic multi-tool structure
 - Users can now:
- - Add multiple AI tools
- - Select tool name and plan dynamically
- - Enter users and monthly spend per tool
- - Remove tool entries
+- Add multiple AI tools
+- Select tool name and plan dynamically
+- Enter users and monthly spend per tool
+- Remove tool entries
+
 
 **Why:**
 Most real teams use multiple AI tools. Supporting multi-tool input makes the audit realistic and useful.
@@ -201,3 +202,71 @@ The biggest learning was how UI structure and state logic must evolve together.
 Also realized that handling real-world edge cases (like free plans and multiple tools) is more important than just building a working form.
 
 The app is now moving from a basic form → toward a usable product.
+
+## Day 3 — Audit Logic Improvement, Testing & User Interviews
+
+### ⏱ Time Spent
+5 hours
+
+---
+
+## ✅ What I Built
+
+### 1.Major Audit Engine Upgrade
+- Completely improved the audit logic with more intelligent and defensible rules
+- Added alternative plan recommendations (e.g., suggesting Pro instead of Team/Enterprise for small teams)
+- Added logic for detecting overpaying vs official pricing
+- Included use-case based suggestions where possible
+- Calculated accurate monthly and annual savings
+
+### 2. Enhanced Result Display
+- Updated ResultCard to show per-tool breakdown clearly
+- Added recommended action, savings amount, and clear reasoning for each tool
+---
+
+### 3. User Interviews
+- Successfully completed 2 user interviews
+- Waiting for response from CTO for the third interview
+
+## 🐞 Bugs Faced & Fixes
+
+### Issue 1:Wrong Savings Calculation
+- Tested many cases (1 person on Enterprise plan, high monthly spend on Free plan, etc.)
+- Fix:
+ - Fixed multiple calculation bugs and improved robustness of audit function
+
+
+## 🧠 Key Decisions
+
+### 1. Quality Over Speed
+Spent more time making the audit logic realistic and defensible rather than adding many features quickly.
+---
+
+### 2. Testing First
+Tested with different real-world scenarios before finalizing the logic.
+---
+
+
+## 📌 What’s Working Now
+
+- Multi-tool form with persistence ✔
+- Dynamic plan selection ✔
+- Stronger & smarter audit logic ✔
+- Clear per-tool recommendations with savings ✔
+- Two real user interviews completed ✔
+
+---
+
+## 🔜 Next Steps (Day 4)
+
+- Integrate Supabase database for storing audit results
+- Implement email capture (lead generation)
+- Create unique shareable report URL
+- Add basic error handling and loading states
+---
+
+## 💭 Reflection
+
+Today was one of the most important days. Improving the audit logic was challenging but very rewarding. I learned how critical it is to think from the user’s and company’s perspective while writing recommendations — not just do simple math.
+Finding and fixing bugs through different test cases helped me understand where the logic could break. Conducting user interviews also gave me real insights that I could immediately apply to the product.
+The project is now starting to feel like a real useful tool rather than just a form. Tomorrow I will move into backend integration which will be a big step.

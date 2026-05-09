@@ -1,53 +1,94 @@
 # PRICING DATA — SpendWise AI
 
-All pricing data is sourced from official vendor pricing pages.
+All pricing data is sourced from official vendor pricing pages as of submission week.
 
 ---
 
 ## ChatGPT (OpenAI)
-- Free — $0/month
-- Plus — $20/month
-- Team — $25/user/month
-- Enterprise — Custom pricing (~$60 estimated for modeling)
-
 Source: https://openai.com/chatgpt/pricing
+
+| Plan | Price |
+|------|------|
+| Plus | $20/user/month |
+| Team | $25/user/month |
+| Enterprise | Custom (~$60 estimate) |
+| API | Usage-based |
 
 ---
 
 ## GitHub Copilot
-- Individual — $10/month
-- Business — $19/user/month
-
 Source: https://github.com/features/copilot
+
+| Plan | Price |
+|------|------|
+| Individual | $10/user/month |
+| Business | $19/user/month |
+| Enterprise | $39/user/month |
 
 ---
 
 ## Claude (Anthropic)
-- Free — $0
-- Pro — $20/month
-- Team — ~$30/user/month (estimated)
-
 Source: https://www.anthropic.com/pricing
+
+| Plan | Price |
+|------|------|
+| Free | $0 |
+| Pro | $20 |
+| Team | ~$30/user/month |
+| Enterprise | Custom (~$60 estimate) |
+| API | Usage-based |
+
+---
+
+## OpenAI API
+Source: https://openai.com/api/pricing
+
+Pricing varies by model and token usage. Estimated monthly usage varies widely.
+
+---
+
+## Anthropic API
+Source: https://www.anthropic.com/api
+
+Usage-based pricing depending on tokens.
 
 ---
 
 ## Gemini (Google)
-- Free — $0
-- Advanced (Gemini Pro) — $19.99/month
+Source: https://deepmind.google/technologies/gemini/
 
-Source: https://one.google.com/about/plans
+| Plan | Price |
+|------|------|
+| Pro | ~$20 |
+| Ultra | ~$30 |
+| API | Usage-based |
 
 ---
 
 ## Cursor
-- Hobby — Free
-- Pro — $20/month
-- Business — ~$40/user/month
+Source: https://cursor.sh
 
-Source: https://cursor.sh/pricing
+| Plan | Price |
+|------|------|
+| Hobby | Free |
+| Pro | $20 |
+| Business | ~$40 |
+| Enterprise | ~$60 |
+
+---
+
+## Windsurf / v0 (example tool)
+Source: https://vercel.com
+
+| Plan | Price |
+|------|------|
+| Free | $0 |
+| Pro | ~$20 |
 
 ---
 
 ## Notes
-- Enterprise pricing is estimated where not publicly disclosed.
-- All assumptions are documented in DEVLOG.md.
+
+- Enterprise pricing is estimated where public pricing is not explicitly listed.
+- API pricing is usage-based and not directly comparable to seat-based pricing.
+- All estimates are conservative and documented for transparency.
