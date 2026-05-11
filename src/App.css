@@ -12,7 +12,7 @@
 
  justify-content: center;
  align-items: flex-start;
- gap: 40px;
+ gap: 20px;
 
  padding: 40px 20px;
  max-width: 1110px;
@@ -22,12 +22,12 @@
 /* FORM + RESULT WIDTH */
 .audit-form {
  flex: 1;
- max-width: 500px;
+ max-width: 600px;
 }
 
 .result-container {
  flex: 1;
- max-width: 500px;
+ max-width: 600px;
 }
 
 @media (max-width: 768px) {
@@ -35,9 +35,9 @@
    flex-direction: column;
    align-items: center;
  }
- .form-container,
+ /*.form-container,
  .result-container {
    max-width: 100%;
    width: 100%;
- }
+ }*/
 }

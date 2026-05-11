@@ -270,3 +270,141 @@ Tested with different real-world scenarios before finalizing the logic.
 Today was one of the most important days. Improving the audit logic was challenging but very rewarding. I learned how critical it is to think from the user’s and company’s perspective while writing recommendations — not just do simple math.
 Finding and fixing bugs through different test cases helped me understand where the logic could break. Conducting user interviews also gave me real insights that I could immediately apply to the product.
 The project is now starting to feel like a real useful tool rather than just a form. Tomorrow I will move into backend integration which will be a big step.
+
+
+📅 DEVLOG — Day 4
+
+Date: 2026-05-10
+
+Hours Worked: 5
+
+🎯 Focus of the Day
+The primary objective for Day 4 was to elevate the project from a purely technical coding task to a complete product-oriented solution. The focus shifted toward strengthening the product layer by developing essential business and user-centric documentation while finalizing and rigorously testing the core audit engine.
+
+🧠 Work Completed
+1. Completed Product Thinking Documents
+I finalized four key strategic documents:
+
+METRICS.md
+ECONOMICS.md
+GTM.md (Go-To-Market Strategy)
+USER_INTERVIEWS.md
+
+Key Learning:
+Creating these documents shifted my perspective from simply “building features” to genuinely solving a real business problem. I had to deeply consider target users, their pain points, usage patterns, and how the product creates measurable value.
+2. Real User Interviews
+I conducted actual user conversations and documented insights regarding:
+
+Current AI tool usage habits
+Awareness and management of AI-related costs
+Willingness to track spending
+
+Major Insight:
+Most users do not actively track their spending on AI tools and significantly underestimate their total monthly costs across multiple platforms.
+Product Impact:
+These findings reinforced the need for clear cost-saving visualizations and improved recommendation clarity in the audit results.
+3. Comprehensive Audit Logic Testing
+Created a dedicated test suite:
+src/tests/auditEngine.test.js
+Test Cases Covered:
+
+Overpay detection
+Better plan recommendation
+Alternative tool suggestions
+Optimal setup (zero savings)
+Free plan handling
+Invalid pricing data
+Multi-tool audit calculations
+
+Key Learning:
+Initially, most test inputs triggered only the overpay condition. I resolved this by designing precise, isolated input scenarios for each logic branch, ensuring full test coverage.
+4. Refined Core Audit Engine
+Significantly improved the audit logic by separating concerns into:
+
+Pricing validation
+Plan optimization
+Alternative tool comparison
+
+Improvements Made:
+
+Ensured only one dominant recommendation is presented
+Made all savings calculations realistic and non-negative
+Enhanced overall output reliability
+
+5. Codebase Organization
+Improved project structure for better maintainability:
+plaintextsrc/
+├── components/
+├── utils/
+│   └── auditEngine.js
+└── tests/
+    └── auditEngine.test.js
+This separation of UI and business logic follows real-world software engineering best practices.
+6. Documentation Standardization
+Ensured all project documents follow a consistent, professional structure with clear headings, reasoning, and practical examples.
+
+📊 Achievements of the Day
+
+Successfully combined technical implementation with business thinking
+Audit system is now fully tested and validated
+Product decisions are grounded in real user insights
+Overall documentation quality raised significantly
+
+
+🤔 Challenges Faced
+
+Creating effective test cases that properly trigger different logic branches
+Preventing overlapping conditions between overpay detection and plan optimization
+Translating raw user interview insights into concrete product improvements
+Developing realistic economic assumptions backed by clear calculations
+
+
+💡 Key Insight of the Day
+A strong product is not just built — it is validated, explained, and justified.
+
+🚀 Next Steps
+
+Final UI polish and improvements
+Complete landing page copy (LANDING_COPY.md)
+Final README refinement
+Submission preparation and packaging
+
+
+🧠 Final Reflection
+Day 4 was the most significant day in the entire project so far. Moving beyond coding to focus on why the product exists, who it serves, and how it delivers value transformed the project.
+The combination of a working and tested technical core, real user insights, and solid business documentation gives me strong confidence that this solution is not only functional but also genuinely useful in a real-world context.
+
+End of DevLog — Day 4
+
+
+## Day 5 — 2026-05-11  
+Hours worked: 6  
+
+What I did:  
+- Successfully integrated Supabase into the project and connected the frontend to the database  
+- Created leads table and verified data insertion (email + savings data)  
+- Fixed issues with API errors (RLS, column mismatch, async handling)  
+- Improved ResultCard UI with conditional logic:
+ - High savings (> $500) → Credex consultation CTA  
+ - Low savings (< $100) → honest messaging (“You’re spending well”)  
+- Added email validation (basic + improved UX)  
+- Fixed state reset issue using useEffect so UI refreshes correctly without manual reload  
+- Minor UI polish for better alignment and clarity  
+
+What I learned:  
+- How real-world backend integration works (Supabase setup, API calls, debugging errors)  
+- Importance of Row Level Security (RLS) and how it affects database operations  
+- React state management patterns, especially resetting UI using useEffect  
+- Difference between actual runtime errors vs editor/lint warnings  
+- How to design product logic based on user value (high vs low intent users)  
+
+Blockers / what I'm stuck on:  
+- Tried to integrate Anthropic API for generating personalized summary paragraphs  
+- Could not proceed due to API access limitation (requires paid plan; no free credits available)  
+- Need to decide whether to mock this feature or skip it due to time constraints  
+
+Plan for tomorrow:  
+- Decide on lightweight alternative for personalized summary (static or rule-based)  
+- Finalize README and documentation sections  
+- Do full project review (UI, logic, data flow)  
+- Prepare final submission checklist and polish

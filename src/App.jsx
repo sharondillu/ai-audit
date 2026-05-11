@@ -5,8 +5,11 @@ import { useState } from "react";
 import Header from "./components/Header";
 import AuditForm from "./components/AuditForm";
 import ResultCard from "./components/ResultCard";
+import {generateAudit} from "./utils/auditEngine";
 import "./App.css";
-
+/* =========================
+  PRICING DATA
+========================= 
 const ALTERNATIVES = {
  "Coding / Software Development": ["GitHub Copilot", "Cursor"],
  "Writing / Content Creation": ["ChatGPT", "Claude"],
@@ -16,7 +19,7 @@ const ALTERNATIVES = {
 
 /* =========================
   PRICING DATA
-========================= */
+========================= 
 
 const PRICING = {
  ChatGPT: {
@@ -105,7 +108,7 @@ let recommendation;
 
  /* =========================
     CASE 1: Overpaying
- ========================= */
+ ========================= 
  if (cost > expectedCost) {
    savings = cost - expectedCost;
 
@@ -114,7 +117,7 @@ let recommendation;
 
  /* =========================
     CASE 2: Better plan
- ========================= */
+ ========================= 
  else if (bestCost < expectedCost) {
    savings = expectedCost - bestCost;
 
@@ -123,7 +126,7 @@ let recommendation;
 
  /* =========================
     CASE 3: Better alternative
- ========================= */
+ ========================= 
  else if (bestAltCost < expectedCost) {
    savings = expectedCost - bestAltCost;
 
@@ -132,7 +135,7 @@ let recommendation;
 
  /* =========================
     CASE 4: Efficient
- ========================= */
+ ========================= 
  else {
    recommendation =
      "Your current setup is cost-efficient based on your usage and team size.";
@@ -140,7 +143,7 @@ let recommendation;
 
  /* =========================
     USE CASE INSIGHT
- ========================= */
+ ========================= 
 
  if (useCase === "Coding / Software Development" && tool === "ChatGPT") {
    recommendation +=

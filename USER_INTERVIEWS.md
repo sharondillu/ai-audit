@@ -26,7 +26,7 @@ Even though the company has its own internal AI system, higher management is sti
 
 **Name:** S P  
 **Role:** Full Stack Developer  
-**Company:(Early-stage Startup)
+**Company:**(Startup / Mid-size)
 
 **Key Quotes:**
 - “We are currently using GitHub Copilot and Windsurf in free versions.”
@@ -45,10 +45,24 @@ Even as a small startup, they are already planning to move to paid plans but hav
 ---
 
 ## Interview 3 — 2026-05-10
-*(Waiting for CTO response)*
 
-**Name:** [CTO Name]  
+
+**Name:** M k 
 **Role:** CTO  
-**Company:** [Company Name]
+**Company:** (Early-stage Startup)
 
-**Status:** Interview request sent. Awaiting reply.
+**Key Quotes:**
+- “I use Codex (paid) and Gemini (free for my mobile prepaid plan). I also use API models which cost me around $50 based on token usage.”
+- “Currently spending close to 2000 for Codex and dev models, and it can go up to 3000 once tokens get exhausted.”
+- “Most of the development is done by me and the team doesn’t use paid AI tools for now. I share the tools based on need using the same login.”
+- “Pricing frustrates me, especially since it’s subscription-based.”
+- “Yes, might need a tool like this in the near future.”
+
+**Most Surprising Thing:**
+Even as a CTO, he is personally handling most of the AI tool usage and sharing a single login with the team. This highlights a common problem of “shared logins” and uncontrolled usage, which can lead to unexpectedly high bills (especially with API token usage).
+
+**What it changed in my design:**
+- Added special handling for API usage (OpenAI API / Anthropic API) with usage-based cost tracking.
+- Made the tool emphasize “Team vs Individual Usage” detection to catch cases where one person is paying for the whole team.
+- Added stronger messaging around subscription fatigue and token exhaustion risks.
+- Prioritized API cost transparency in the final recommendations.
