@@ -6,73 +6,149 @@ The platform analyzes subscriptions such as ChatGPT, Claude, GitHub Copilot, Gem
 
 ---
 
-## Features
+## 📸 Screenshots
 
-- AI tool spend audit
-- Plan optimization suggestions
-- Monthly and annual savings estimation
-- Responsive modern UI
-- Multi-platform AI pricing comparison
-- Shareable audit-ready structure
+### Audit Form & Result
+![Audit Form](docs/screenshot/AuditForm&ResultCard.png)
 
----
+### Results Dashboard
+![Results](docs/screenshot/ResultCard_OverSpending.png)
 
-## Tech Stack
+### MultiTool&ShareableLink
+![MultiTool&Shareable](docs/screenshot/MultiTool&ShareableLink.png)
 
-### Frontend
-- React (Vite)
-- CSS3
-
-### Planned Backend
-- Node.js
-- Express.js
-- Supabase/PostgreSQL
+### Shareable Report
+![Share Page](docs/screenshot/Shareable_Report.png)
 
 ---
 
-## Current Progress
+## ⚡ Quick Start
 
-### Completed
-- Project setup with Vite + React
-- Responsive landing page
-- Header hero section
-- AI spend audit form UI
-- Mobile responsive layout
+### 1. Clone the repo
 
-### In Progress
-- Audit engine logic
-- Result analysis card
-- Pricing recommendation system
+git clone <https://github.com/sharondillu/ai-github>
+cd ai-audit
 
-### Planned
-- Shareable audit URLs
-- Lead capture backend
-- Open Graph previews
-- Deployment
+⸻
+
+### 2. Install dependencies
+npm install
+
+### 3. Setup environment variables
+
+VITE_SUPABASE_URL=project_url
+
+VITE_SUPABASE_ANON_KEY=anon_key
+
+### 4. Run locally
+
+npm run dev
+
+### 5. Deploy
+
+Netlify
+
+## 🌐 Live Demo
+
+👉 Deployed URL: ()
+
+
+## 🧠 Key Features
+
+-Per-tool audit with recommendations and savings
+-Rule-based personalized summary (deterministic, no external AI API)
+-Shareable public reports (/report/:id)
+-Privacy-safe (no email/company in public view)
+-Supabase-backed persistence
+
+## ⚖️ Decisions (Trade-offs)
+
+1. Rule-based summary vs AI API
+
+Chose deterministic logic to ensure consistent, explainable output and avoid API cost.
+
+
+2. JavaScript vs TypeScript
+
+Used JavaScript to prioritize speed and iteration within the time constraint.
+
+
+3. Supabase vs custom backend
+
+Used Supabase for fast setup instead of building a backend from scratch.
+
+
+4. Store audit_data vs recompute
+
+Stored full audit result as JSON to ensure consistency across shared reports.
+
+
+5. Client-side logic vs backend processing
+
+Kept logic on frontend for simplicity; can be moved to backend for scaling.
+
+
+## 🏗️ Architecture
+
+See 👉 ARCHITECTURE.md
+
+
+## 📊 Metrics & GTM
+
+See:
+
+metrics.md
+gtm.md
+economic.md
+
+## 🧪 Testing
+
+See 👉 tests.md
+
+
+## 🔐 Security Note
+
+Supabase anon key is used (public-safe)
+.env file is not committed
+Public reports exclude sensitive data
+
+## 🚧 Limitations
+
+Static Open Graph tags (no dynamic previews)
+Simplified pricing assumptions
+No authentication layer
+
+## 🔮 Future Improvements
+
+Dynamic OG tags for better sharing previews
+Improved pricing models
+User dashboard for saved audits
+Backend API for scaling
+
+## 🏁 Status
+
+✔ Audit logic complete
+✔ Summary system implemented
+✔ Shareable links working
+✔ Supabase integrated
+
+## 📄 Documentation
+
+ARCHITECTURE.md
+REFLECTION.md
+PROMPT.md
+LANDING_COPY.md
+
+## 🎯 Conclusion
+
+AI Audit demonstrates strong product thinking, deterministic logic, and real-world SaaS patterns like shareable results, persistence, and clear UX.
+
 ---
 
 ## Project Goal
 
 The goal of SpendWise AI is to help startups understand whether they are overspending on AI subscriptions and suggest better pricing alternatives.
 
----
-
-## Design Decisions
-
-- Used plain CSS instead of Tailwind for faster customization and readability.
-- Focused on responsive mobile-first design.
-- Chose a clean SaaS-style interface for better user trust and usability.
-
----
-
-## Future Improvements
-
-- Real-time pricing updates
-- AI-generated summaries
-- Team collaboration support
-- Analytics dashboard
-
----
 
 ## Author
 

@@ -438,3 +438,55 @@ Plan for tomorrow:
 - Review all features against assignment rubric  
 - Do final UI polish and bug testing  
 - Prepare project for submission (clean commits, documentation check)
+
+## Day 7 — 2026-05-13
+⏱ Time Spent
+~8 hours
+
+## ✅ What I Built
+
+Completed all remaining documentation files as per assignment requirements
+Finalized and polished README.md with screenshots, live link, and setup instructions
+Created PROMPTS.md, REFLECTION.md, and LANDING_COPY.md
+Reviewed and tested all core features end-to-end
+Final UI polish on Result page (better spacing, summary box, button styling)
+Fixed minor bugs in Personalized Summary feature
+Prepared project for deployment (Netlify setup, environment variables, build testing)
+Renamed ARCHITECHTURE.md → ARCHITECTURE.md
+
+## 🐞 Bugs Faced & Fixes
+
+Issue: Personalized Summary not showing reliably
+Fix: Added proper null checks and default values in generateSummary.js + ensured formData is correctly passed from App.jsx
+Issue: Missing documentation files
+Fix: Created all required .md files with good quality content
+
+
+## 🧠 Key Decisions
+
+Chose fallback summary system instead of real Anthropic API due to credit limitations — still meets assignment requirements with graceful degradation
+Focused heavily on documentation and polish on the final day rather than adding new features
+Prioritized making the project fully submittable over perfection
+
+
+## 📌 What’s Working Now
+
+Multi-tool form with persistence ✅
+Smart audit engine with alternatives ✅
+Personalized Summary (fallback) ✅
+Email capture with Supabase ✅
+Responsive dark UI ✅
+All required documentation files ✅
+
+
+## 🔜 Next Steps (After Submission)
+
+Deploy final version on Netlify
+
+
+
+## 💭 Reflection
+Today was a long but very productive day. I spent most of the time polishing the project and completing all the documentation files. It felt good to see the full picture coming together — from a simple form to a complete working tool with good UI and documentation.
+I learned that finishing strong with proper documentation and reflection is just as important as the code itself. Even though I couldn’t integrate the real Anthropic API due to credit issues, I’m confident the fallback solution is solid and honest.
+The project is now ready for submission. I feel I have shown consistent effort over 7 days.
+
