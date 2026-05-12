@@ -115,3 +115,54 @@
  border-radius: 12px;
  text-align: center;
 }
+
+.share-box {
+ margin-top: 15px;
+}
+
+/*.share-box input {
+ width: 100%;
+ padding: 10px;
+ border-radius: 8px;
+}
+*/
+/* ROW LAYOUT */
+.share-row {
+ display: flex;
+ gap: 10px;
+ margin-top: 8px;
+}
+
+/* INPUT */
+.share-row input {
+ flex: 1;
+ padding: 12px 14px;
+ border-radius: 10px;
+ border: 1px solid #3b3b42;
+ background: #232326;
+ color: #d4d4d8;
+ font-size: 0.9rem;
+}
+
+/* BUTTON */
+.share-row button {
+ padding: 12px 16px;
+ border-radius: 10px;
+ border: none;
+ background: linear-gradient(135deg, #4f46e5, #6366f1);
+ color: white;
+ font-weight: 600;
+ cursor: pointer;
+ transition: 0.2s ease;
+}
+
+/* HOVER */
+.share-row button:hover {
+ transform: translateY(-1px);
+ opacity: 0.95;
+}
+
+/* ACTIVE */
+.share-row button:active {
+ transform: scale(0.97);
+}

@@ -408,3 +408,33 @@ Plan for tomorrow:
 - Finalize README and documentation sections  
 - Do full project review (UI, logic, data flow)  
 - Prepare final submission checklist and polish
+
+## Day 6 — 2026-05-12  
+Hours worked: 7  
+
+What I did:  
+- Implemented a rule-based personalized summary system based on audit results (high / medium / low savings cases)  
+- Integrated summary into ResultCard UI with clear, concise messaging  
+- Built shareable result feature:
+ - Generated unique report_id for each audit  
+ - Stored full audit result (audit_data) in Supabase  
+ - Created public route /report/:id to display results  
+- Ensured privacy by excluding sensitive fields (email, company) from public report  
+- Connected React Router and fixed routing issues (duplicate Router error)  
+- Added share UI with copy-to-clipboard functionality and responsive styling  
+
+What I learned:  
+- How to design deterministic, explainable logic instead of relying on external APIs  
+- How routing works in React apps and how to structure pages vs components  
+- How to design a basic viral loop using shareable links and public pages 
+- Importance of separating private vs public data in real-world applications  
+
+Blockers / what I'm stuck on:  
+- Dynamic Open Graph tags for share previews are not fully implemented due to limitations of client-side rendering  
+- Need to decide whether to keep static OG tags or attempt advanced setup  
+
+Plan for tomorrow:  
+- Finalize README sections (architecture, decisions, metrics, GTM)  
+- Review all features against assignment rubric  
+- Do final UI polish and bug testing  
+- Prepare project for submission (clean commits, documentation check)

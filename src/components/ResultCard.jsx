@@ -1,17 +1,22 @@
+import { generateSummary } from "../utils/generateSummary";
 import { useEffect,useState } from "react";
 
 import "./ResultCard.css";
 import { supabase } from "../utils/supabaseClient";
 
-function ResultCard({ result }) {
+function ResultCard({ result,formData }) {
  const [email, setEmail] = useState("");
  const [saved, setSaved] = useState(false);
  const [loading, setLoading] = useState(false);
+  const [summary, setSummary] = useState("");           
+  const [summaryLoading, setSummaryLoading] = useState(false); 
+const [shareUrl, setShareUrl] = useState("");
 
  useEffect(() => {
   if(result){
  setSaved(false);
  setEmail(""); // optional reset
+ setSummary("");
  setLoading(false);
   }
 }, [result]);
@@ -25,11 +30,37 @@ function ResultCard({ result }) {
      </div>
    );
  }
+//const summary = generateSummary(result);
 
  const { monthlySavings, annualSavings, breakdown } = result;
 
  const isHigh = monthlySavings > 500;
  const isLow = monthlySavings < 100;
+
+  const handleGenerateSummary = () => {
+    if (!formData || !result) {
+      alert("Please run the audit first");
+      return;
+    }
+
+    setSummaryLoading(true);
+
+    setTimeout(() => {
+      try {
+        const generatedSummary = generateSummary(formData, result);
+        console.log("Generated Summary:", generatedSummary); // For debugging
+        setSummary(generatedSummary || "Summary generated successfully.");
+      } catch (err) {
+        console.error(err);
+        setSummary("Based on your audit, there are opportunities to optimize your AI spending.");
+      }
+      setSummaryLoading(false);
+    }, 1000);
+  };
+
+
+
+
 
  const handleSave = async () => {
    if (!email) return alert("Enter email");
@@ -38,13 +69,21 @@ function ResultCard({ result }) {
     return;
    }
 
+    const reportId = generateId();
+
+
    setLoading(true);
 
    const { error } = await supabase.from("leads").insert([
      {
        email,
-       monthly_savings: monthlySavings,
-       annual_savings: annualSavings,
+      report_id: reportId,
+       monthly_savings: result.monthlySavings,
+     annual_savings: result.annualSavings,
+     audit_data: result,
+    
+      // monthly_savings: monthlySavings,
+      // annual_savings: annualSavings,
      },
    ]);
 
@@ -54,8 +93,18 @@ function ResultCard({ result }) {
      console.error(error);
    } else {
      setSaved(true);
+     setShareUrl(`${window.location.origin}/report/${reportId}`);
    }
  };
+const generateId = () => {
+ return Math.random().toString(36).substring(2, 10);
+};
+
+
+
+
+
+
 
  return (
    <div className="result-container">
@@ -100,6 +149,40 @@ function ResultCard({ result }) {
          ))}
        </div>
 
+        {/* Personalized Summary */}
+        <div style={{ marginTop: "40px" }}>
+          <button
+            onClick={handleGenerateSummary}
+            disabled={summaryLoading}
+            style={{
+              width: "100%",
+              padding: "16px",
+              fontSize: "1.1rem",
+              backgroundColor: "#6366f1",
+              color: "white",
+              border: "none",
+              borderRadius: "12px",
+              cursor: "pointer",
+              fontWeight: "600"
+            }}
+          >
+            {summaryLoading ? "Generating..." : "✨ Generate Personalized Summary"}
+          </button>
+
+          {summary && (
+            <div className="recommendation-box" style={{ marginTop: "20px", textAlign: "left" }}>
+              <h3>Personalized Summary</h3>
+              <p>{summary}</p>
+            </div>
+          )}
+        </div>
+
+
+
+
+
+
+
        {/* CTA SECTION */}
 
        {!saved ? (
@@ -142,8 +225,19 @@ function ResultCard({ result }) {
          </div>
        ) : (
          <div className="success-box">
-           ✅ Saved! We’ll be in touch.
-         </div>
+           ✅ Saved! 
+          Your audit is ready to share.
+         
+          <div className="share-box">
+   <p>Share your result:</p>
+   <div className="share-row">
+   <input value={shareUrl} readOnly />
+   <button onClick={() => navigator.clipboard.writeText(shareUrl)}>
+ Copy Link
+</button></div>
+ </div></div>
+        
+
        )}
 
      </div>
