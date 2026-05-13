@@ -25,7 +25,7 @@ const [shareUrl, setShareUrl] = useState("");
    return (
      <div className="result-container">
        <div className="result-card empty">
-         Run Audit to see your results
+         Run an Audit to discover hidden savings in your AI stack
        </div>
      </div>
    );

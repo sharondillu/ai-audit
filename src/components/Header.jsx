@@ -9,7 +9,7 @@ export default function Header() {
        </h1>
 
        <p className="tagline">
-         Instantly audit your AI tool spending and uncover hidden savings
+        Instantly audit your AI Tool spending and uncover hidden savings
        </p>
      </div>
    </header>

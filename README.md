@@ -50,7 +50,7 @@ Netlify
 
 ## 🌐 Live Demo
 
-👉 Deployed URL: ()
+## 👉 Deployed URL: https://spendwise-ai-audit.netlify.app/
 
 
 ## 🧠 Key Features
