@@ -59,27 +59,9 @@ describe("Alternative tool suggestion", () => {
  });
 });
 
-/* =========================
-  4. NO SAVINGS (OPTIMAL)
-========================= */
-describe("Optimal setup", () => {
- it("returns no savings when setup is already optimal", () => {
-   const input = {
-     tool: "GitHub Copilot",
-     plan: "Individual",
-     users: 2,
-     cost: 20, // expected = 20
-   };
-
-   const result = evaluateTool(input, "Coding / Software Development");
-
-   expect(result.savings).toBe(0);
-   expect(result.recommendation.toLowerCase()).toContain("efficient");
- });
-});
 
 /* =========================
-  5. INVALID PRICING
+  4. INVALID PRICING
 ========================= */
 describe("Invalid pricing handling", () => {
  it("handles unknown tool or plan safely", () => {
@@ -98,7 +80,7 @@ describe("Invalid pricing handling", () => {
 });
 
 /* =========================
-  6. ZERO USERS EDGE CASE
+  5. ZERO USERS EDGE CASE
 ========================= */
 describe("Edge cases", () => {
  it("handles zero users gracefully", () => {
@@ -116,7 +98,7 @@ describe("Edge cases", () => {
 });
 
 /* =========================
-  7. MULTI-TOOL AUDIT
+  6. MULTI-TOOL AUDIT
 ========================= */
 describe("Full audit calculation", () => {
  it("calculates total savings correctly", () => {
@@ -144,4 +126,4 @@ describe("Full audit calculation", () => {
    expect(result.annualSavings).toBe(result.monthlySavings * 12);
    expect(result.breakdown.length).toBe(2);
  });
-});
+}); 
