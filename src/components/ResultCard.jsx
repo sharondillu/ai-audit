@@ -93,7 +93,9 @@ const [shareUrl, setShareUrl] = useState("");
      console.error(error);
    } else {
      setSaved(true);
-     setShareUrl(`${window.location.origin}/report/${reportId}`);
+     
+      const fullUrl=`${window.location.origin}/report/${reportId}`;
+      setShareUrl(fullUrl);
    }
  };
 const generateId = () => {
