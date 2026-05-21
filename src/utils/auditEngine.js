@@ -3,9 +3,9 @@
   PRICING DATA
 ========================= */
 
-const PRICING = {
+export const PRICING = {
  ChatGPT: {
-   Plus: 20,
+   Plus: 60,
    Team: 25,
    Enterprise: 60,
  },
@@ -25,7 +25,7 @@ const PRICING = {
  },
  Cursor: {
    Hobby: 0,
-   Pro: 20,
+   Pro: 50,
    Business: 40,
  },
 };
@@ -199,5 +199,6 @@ export const generateAudit = (data) => {
    monthlySavings,
    annualSavings: monthlySavings * 12,
    breakdown,
+   inputData:data
  };
 };

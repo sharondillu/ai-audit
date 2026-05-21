@@ -9,7 +9,8 @@ import {generateAudit} from "./utils/auditEngine";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import ReportPage from "./pages/ReportPage";
-
+import AdminPage from "./pages/AdminPage";
+import RerunPage from "./pages/RerunPage";
 
 /* =========================
   APP
@@ -43,6 +44,8 @@ function App(){
  <Routes>
    <Route path="/" element={<MainApp />} />
    <Route path="/report/:id" element={<ReportPage />} />
+   <Route path="/admin" element={<AdminPage />} />
+   <Route path="rerun/:id" element={<RerunPage/>} />
  </Routes>
 
   )

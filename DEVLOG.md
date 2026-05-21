@@ -490,3 +490,61 @@ Today was a long but very productive day. I spent most of the time polishing the
 I learned that finishing strong with proper documentation and reflection is just as important as the code itself. Even though I couldn’t integrate the real Anthropic API due to credit issues, I’m confident the fallback solution is solid and honest.
 The project is now ready for submission. I feel I have shown consistent effort over 7 days.
 
+Day 6 — 2026-05-20
+⏱ Time Spent
+~13hours
+
+✅ What I Built
+
+Implemented Persistent Audit Storage — every completed audit is now saved in Supabase audits table
+Added pricing snapshot functionality (saving current pricing data along with each audit)
+Created unique report_id for each audit
+Built shareable report link generation (/report/{reportId})
+Updated ResultCard to save full audit data (input + result + pricing snapshot)
+Started working on ReportPage.jsx to display saved audits
+Fixed several bugs related to Supabase insert and data retrieval
+
+
+🐞 Bugs Faced & Fixes
+Issue 1: RLS Policy Error on audits table
+
+Cause: Row Level Security blocking inserts
+Fix: Disabled RLS temporarily + created proper policies for public insert/select
+
+Issue 2: null is not an object error in ReportPage
+
+Cause: Trying to access data.audit_result when data was null
+Fix: Added proper null checks, error handling, and fallback states
+
+Issue 3: Missing formData while saving
+
+Fix: Ensured formData is properly passed from App.jsx to ResultCard
+
+
+🧠 Key Decisions
+
+Chose to store full audit_result + input_stack + pricing_snapshot together so future re-audits can show accurate diffs
+Decided to use report_id (UUID) instead of auto-increment ID for cleaner shareable URLs
+Prioritized making audits persistent over other features because it’s the foundation for Round 2
+
+
+📌 What’s Working Now
+
+Audit is saved successfully after user submits email
+Shareable link is generated
+Basic ReportPage loads (still needs diff view)
+Personalized Summary working
+Form persistence working
+
+
+🔜 Next Steps 
+
+Complete ReportPage with proper diff view (old vs new)
+Final polish on UI and documentation
+Deploy final version on Netlify
+Prepare all submission documents
+
+
+💭 Reflection
+Yesterday was a very important day focused on data persistence. Implementing audit storage and pricing snapshots felt like a big milestone — the project now feels much closer to a real product rather than just a one-time calculator.
+Dealing with Supabase RLS errors and null checking taught me to be more defensive with database operations. Even though it took time, getting the save + share functionality working gave me confidence for Round 2.

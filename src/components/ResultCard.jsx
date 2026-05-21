@@ -3,8 +3,9 @@ import { useEffect,useState } from "react";
 
 import "./ResultCard.css";
 import { supabase } from "../utils/supabaseClient";
+import { PRICING } from "../utils/auditEngine";
 
-function ResultCard({ result,formData }) {
+function ResultCard({ result,formData ,readOnly}) {
  const [email, setEmail] = useState("");
  const [saved, setSaved] = useState(false);
  const [loading, setLoading] = useState(false);
@@ -58,53 +59,47 @@ const [shareUrl, setShareUrl] = useState("");
     }, 1000);
   };
 
-
-
-
-
  const handleSave = async () => {
    if (!email) return alert("Enter email");
    if(!email.includes("@")){
     alert("Please Enter a valid email");
     return;
    }
+const reportId = crypto.randomUUID();
 
-    const reportId = generateId();
+const { error } = await supabase
+ .from("audits")
+ 
 
+ .insert([
+   {
+     report_id: reportId,
 
-   setLoading(true);
+     email: email,
 
-   const { error } = await supabase.from("leads").insert([
-     {
-       email,
-      report_id: reportId,
-       monthly_savings: result.monthlySavings,
-     annual_savings: result.annualSavings,
-     audit_data: result,
-    
-      // monthly_savings: monthlySavings,
-      // annual_savings: annualSavings,
-     },
-   ]);
+     input_stack: formData,
 
-   setLoading(false);
+     audit_result: result,
 
-   if (error) {
-     console.error(error);
-   } else {
-     setSaved(true);
-     
-      const fullUrl=`${window.location.origin}/report/${reportId}`;
-      setShareUrl(fullUrl);
+     pricing_snapshot: PRICING
    }
+ ]);
+
+if (error) {
+ console.error(error);
+ return;
+}else{
+
+const fullUrl =
+ `${window.location.origin}/report/${reportId}`;
+
+setShareUrl(fullUrl);
+
+setSaved(true);
+
+}
+
  };
-const generateId = () => {
- return Math.random().toString(36).substring(2, 10);
-};
-
-
-
-
 
 
 
@@ -152,6 +147,7 @@ const generateId = () => {
        </div>
 
         {/* Personalized Summary */}
+        {!readOnly &&(
         <div style={{ marginTop: "40px" }}>
           <button
             onClick={handleGenerateSummary}
@@ -179,72 +175,67 @@ const generateId = () => {
           )}
         </div>
 
-
+)}
 
 
 
 
 
        {/* CTA SECTION */}
+{!readOnly && (
+  <>
+    {!saved ? (
+      <div className="cta-box">
+        {isHigh ? (
+          <>
+            <h3>Book a free Credex consultation</h3>
+            <p>We'll help you reduce your AI spend further.</p>
+            <input
+              type="email"
+              placeholder="Work email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <button onClick={handleSave} disabled={loading}>
+              {loading ? "Booking..." : "Book Consultation"}
+            </button>
+          </>
+        ) : (
+          <>
+            <h3>Stay updated</h3>
+            <p>We'll notify you when new optimizations apply.</p>
+            <input
+              type="email"
+              placeholder="Your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <button onClick={handleSave} disabled={loading}>
+              {loading ? "Saving..." : "Notify Me"}
+            </button>
+          </>
+        )}
+      </div>
+    ) : (
+      <div className="success-box">
+        ✅ Saved! Your audit is ready to share.
+        <div className="share-box">
+          <p>Share your result:</p>
+          <div className="share-row">
+            <input value={shareUrl} readOnly />
+            <button onClick={() => navigator.clipboard.writeText(shareUrl)}>
+              Copy Link
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
+  </>
+)}
 
-       {!saved ? (
-         <div className="cta-box">
-
-           {isHigh ? (
-             <>
-               <h3>Book a free Credex consultation</h3>
-               <p>We’ll help you reduce your AI spend further.</p>
-
-               <input
-                 type="email"
-                 placeholder="Work email"
-                 value={email}
-                 onChange={(e) => setEmail(e.target.value)}
-               />
-
-               <button onClick={handleSave} disabled={loading}>
-                 {loading ? "Booking..." : "Book Consultation"}
-               </button>
-             </>
-           ) : (
-             <>
-               <h3>Stay updated</h3>
-               <p>We’ll notify you when new optimizations apply.</p>
-
-               <input
-                 type="email"
-                 placeholder="Your email"
-                 value={email}
-                 onChange={(e) => setEmail(e.target.value)}
-               />
-
-               <button onClick={handleSave} disabled={loading}>
-                 {loading ? "Saving..." : "Notify Me"}
-               </button>
-             </>
-           )}
-
-         </div>
-       ) : (
-         <div className="success-box">
-           ✅ Saved! 
-          Your audit is ready to share.
-         
-          <div className="share-box">
-   <p>Share your result:</p>
-   <div className="share-row">
-   <input value={shareUrl} readOnly />
-   <button onClick={() => navigator.clipboard.writeText(shareUrl)}>
- Copy Link
-</button></div>
- </div></div>
-        
-
-       )}
-
-     </div>
-   </div>
- );
+    </div>
+  </div>
+  );
 }
 
 export default ResultCard;

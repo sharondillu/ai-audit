@@ -1,30 +1,29 @@
-// src/utils/generateSummary.js
-
 export const generateSummary = (formData, auditResult) => {
-  const { teamSize = 1, useCase = "Mixed Use Cases", tools = [] } = formData || {};
-  const monthlySavings = auditResult?.monthlySavings || 0;
-  const annualSavings = Math.round(monthlySavings * 12);
+ const { teamSize = 1, useCase = "Mixed Use Cases", tools = [] } = formData || {};
+ const monthlySavings = auditResult?.monthlySavings || 0;
+ const annualSavings = Math.round(monthlySavings * 12);
 
-  const toolNames = tools.length > 0 
-    ? tools.map(t => t.tool || "Unknown Tool").join(", ") 
-    : "your AI tools";
+ const toolNames = tools.length > 0
+   ? tools.map(t => t.tool || "Unknown Tool").join(", ")
+   : "your AI tools";
 
-  let summary = "";
+ let summary ;
 
-  if (monthlySavings > 500) {
-    summary = `Your audit reveals a significant opportunity to save $${monthlySavings} per month ($${annualSavings} annually). `;
-    summary += `With a team of ${teamSize} members primarily working on ${useCase.toLowerCase()}, several tools like ${toolNames} can be optimized for better value.`;
-  } 
-  else if (monthlySavings > 100) {
-    summary = `You can save $${monthlySavings} per month ($${annualSavings} per year) by making strategic adjustments. `;
-    summary += `Your ${teamSize} person team using ${toolNames} for ${useCase.toLowerCase()} has good potential for cost reduction.`;
-  } 
-  else {
-    summary = `Your current AI tool setup looks reasonably optimized for your ${teamSize} person team focused on ${useCase.toLowerCase()}. `;
-    summary += `You're using ${toolNames} efficiently with limited room for further savings.`;
-  }
+ if (monthlySavings > 500) {
+   summary = `You are likely overpaying for overlapping AI tools. `;
+   summary += `Your audit shows a potential saving of $${monthlySavings}/month ($${annualSavings}/year). `;
+   summary += `For a ${teamSize}-person team focused on ${useCase.toLowerCase()}, consolidating tools like ${toolNames} could significantly reduce costs.`;
+ }
+ else if (monthlySavings > 100) {
+   summary = `There is a moderate opportunity to optimize your AI spend. `;
+   summary += `You can save around $${monthlySavings}/month ($${annualSavings}/year) by refining usage across tools like ${toolNames}.`;
+ }
+ else {
+   summary = `Your current AI stack is already well optimized. `;
+   summary += `For a ${teamSize}-person team using ${toolNames}, there is minimal unnecessary spend.`;
+ }
 
-  summary += ` Regular monitoring of your AI spending will help you stay efficient as your team grows.`;
+ summary += ` Reviewing tool usage regularly will help maintain efficiency as your team grows.`;
 
-  return summary;
+ return summary;
 };
