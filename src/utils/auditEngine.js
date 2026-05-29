@@ -5,7 +5,7 @@
 
 export const PRICING = {
  ChatGPT: {
-   Plus: 60,
+   Plus: 20,
    Team: 25,
    Enterprise: 60,
  },
@@ -16,7 +16,7 @@ export const PRICING = {
  },
  Claude: {
    Pro: 20,
-   Team: 30,
+   Team: 60,
    Enterprise: 60,
  },
  Gemini: {
